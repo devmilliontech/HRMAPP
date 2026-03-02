@@ -1,0 +1,96 @@
+{
+  "expo": {
+    "name": "HRMAPP",
+    "slug": "hrm",
+    "version": "2.1.3",
+    "orientation": "portrait",
+    "icon": "./assets/icon2.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.millionhits.hrm",
+      "buildNumber": "8",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to take profile photos and upload documents.",
+        "NSPhotoLibraryUsageDescription": "This app accesses your photo library to select profile photos and documents.",
+        "NSPhotoLibraryAddUsageDescription": "This app saves photos to your photo library.",
+        "NSLocationWhenInUseUsageDescription": "This app uses your location for attendance tracking.",
+        "UIBackgroundModes": [
+          "fetch",
+          "remote-notification",
+          "fetch",
+          "remote-notification"
+        ],
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "icon": "./assets/icon2.png",
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+      },
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon2.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "android": {
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.millionhits.hrm",
+      "versionCode": 8,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon2.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.VIBRATE",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "icon": "./assets/icon2.png",
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "d737bb07-e1a2-431b-b988-a4d10c8ce353"
+      }
+    },
+    "owner": "devmilliontech",
+    "plugins": [
+      "expo-font",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you select profile pictures and documents.",
+          "cameraPermission": "Allow HRMAPP to access your camera to take photos."
+        }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Allow HRMAPP to use Face ID for secure authentication."
+        }
+      ]
+    ]
+  }
+}
