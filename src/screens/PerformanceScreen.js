@@ -9,8 +9,10 @@ import { months, years } from "../constants/data";
 import AppLoading from "../components/common/AppLoading";
 import { getPreviousMonthYear } from "../utils/helper";
 import { usePerformance } from "../store/usePerformanceStore";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const PerformanceScreen = () => {
+    const insets = useSafeAreaInsets()
     const { month: initialMonth, year: initialYear } = getPreviousMonthYear();
     const [loading, setLoading] = useState(false)
     const [month, setMonth] = useState(months.find(m => m.value == initialMonth));
@@ -51,7 +53,7 @@ const PerformanceScreen = () => {
 
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { marginBottom: insets.bottom }]}>
             <AppLoading visible={loading} />
             <ScrollView contentContainerStyle={styles.content}>
                 <Card>

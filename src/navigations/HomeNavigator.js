@@ -13,6 +13,7 @@ import AppText from '../components/common/AppText'
 import { useDashboardStore } from '../store/useDashboardStore'
 import { useApi } from '../hooks/useApi'
 import notification from '../api/notification'
+import ProfileScreen from '../screens/ProfileScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -40,6 +41,7 @@ const HomeNavigator = () => {
             }
         }}>
             <Stack.Screen name='Home' component={Dashboard} options={{ headerShown: false }} />
+            <Stack.Screen name='Profile' component={ProfileScreen} />
             <Stack.Screen name='Notifications' component={NotificationScreen} options={{
                 title: "Notifications",
                 headerRight: () => (

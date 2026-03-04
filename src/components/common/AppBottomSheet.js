@@ -1,6 +1,6 @@
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import AppText from './AppText'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { colors } from '../../constants/colors'
@@ -8,7 +8,7 @@ import { colors } from '../../constants/colors'
 const AppBottomSheet = ({ visible, listItem, onSelect, onCancel }) => {
 
     const bottomSheetRef = useRef(null);
-    const snapPoints = useMemo(() => ["40%"], []);
+    const snapPoints = useMemo(() => ["60%"], []);
     const insets = useSafeAreaInsets();
 
     useEffect(() => {
@@ -39,21 +39,26 @@ const AppBottomSheet = ({ visible, listItem, onSelect, onCancel }) => {
             backdropComponent={renderBackdrop}
             onDismiss={onCancel}
         >
-            <BottomSheetView
-                style={[styles.modal, { paddingBottom: insets.bottom + 20 }]}
+            <BottomSheetScrollView
+                style={[styles.modal, { marginBottom: insets.bottom }]}
             >
-                <FlatList
-                    data={listItem}
-                    keyExtractor={(item) => item.label}
-                    renderItem={({ item }) => <TouchableOpacity onPress={() => {
-                        onSelect(item);
-                        onCancel();
-                    }} style={{ paddingVertical: 12 }}>
-                        <AppText>{item.label}</AppText>
-                    </TouchableOpacity>}
-                    ItemSeparatorComponent={() => <View style={{ width: "100%", height: 1, backgroundColor: colors.light }} />}
-                />
-            </BottomSheetView>
+                {
+                    listItem?.map((item, id) => (
+                        <View key={id}>
+                            <TouchableOpacity onPress={() => {
+                                onSelect(item);
+                                onCancel();
+                            }} style={{ paddingVertical: 12 }}>
+                                <AppText>{item.label}</AppText>
+                            </TouchableOpacity>
+                            <View style={{ width: "100%", height: 1, backgroundColor: colors.light }} />
+                        </View>
+                    ))
+                }
+
+                <View style={{ height: 50 }} />
+
+            </BottomSheetScrollView>
         </BottomSheetModal>
     )
 }

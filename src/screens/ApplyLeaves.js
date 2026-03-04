@@ -55,11 +55,11 @@ const ApplyLeaves = () => {
     }
 
     return (
-        <View>
+        <View style={{ marginBottom: insets.bottom }}>
             <KeyboardAvoidingView behavior="padding">
                 <ScrollView
                     style={styles.container}
-                    contentContainerStyle={{ paddingBottom: insets.bottom + 34 }}
+                    contentContainerStyle={{ paddingBottom: 40 }}
                 >
                     <AppForm
                         initialValues={{ leaveType: "", reason: "", startDate: null, endDate: null }}

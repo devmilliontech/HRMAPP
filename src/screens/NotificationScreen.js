@@ -9,8 +9,10 @@ import { Swipeable } from "react-native-gesture-handler";
 import { RectButton } from "react-native-gesture-handler";
 import { useApi } from "../hooks/useApi";
 import notification from "../api/notification";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const NotificationScreen = () => {
+    const insets = useSafeAreaInsets()
     const [notifications, setNotifications] = useState([]);
     const deleteHook = useApi(notification.deleteNotification)
     const marksAsReadHook = useApi(notification.markAsReadNotifications)
@@ -103,10 +105,7 @@ const NotificationScreen = () => {
     }, [notifications]);
 
     return (
-        <View style={styles.container}>
-            {notifications.length > 0 && <View style={{ position: "absolute", top: -40, zIndex: 50, right: 10, flexDirection: "row", justifyContent: "flex-end", padding: 16 }}>
-
-            </View>}
+        <View style={[styles.container, { marginBottom: insets.bottom }]}>
             <FlatList
                 data={notifications}
                 keyExtractor={(item) => item.id}

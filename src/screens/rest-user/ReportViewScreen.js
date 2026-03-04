@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
     View,
     StyleSheet,
@@ -10,7 +10,7 @@ import {
     StatusBar,
 } from "react-native";
 
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import AppText from "../../components/common/AppText";
 import Card from "../../layout/Card";
 import AppButton from "../../components/common/AppButton";
@@ -21,16 +21,17 @@ import AppLoading from "../../components/common/AppLoading";
 import moment from "moment";
 import AppPicker from "../../components/common/AppPicker";
 import AppDatePicker from "../../components/common/AppDatePicker";
-import Constants from 'expo-constants';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useReportStore } from "../../store/useReportStore";
 import { typography } from "../../constants/typography";
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 
 const normalizeDate = (date) =>
     new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
 
 
 const ReportViewScreen = () => {
+    const insets = useSafeAreaInsets();
     const [loading, setLoading] = useState(false)
     const { reports, setReports } = useReportStore()
     const [filterReports, setFilterdReports] = useState(null);
@@ -77,7 +78,7 @@ const ReportViewScreen = () => {
 
         if (team?.value) {
             filtered = filtered.filter(
-                item => item?.user?.team === team.value
+                item => item?.user?.team?.toLowerCase() === team.value.toLowerCase()
             );
         }
 
@@ -85,7 +86,7 @@ const ReportViewScreen = () => {
     }, [reports, date, team]);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { marginBottom: insets.bottom }]}>
             <AppLoading visible={loading} />
             <ScrollView contentContainerStyle={styles.content}
                 refreshControl={<RefreshControl refreshing={refresh} onRefresh={onRefresh} />}
@@ -137,7 +138,7 @@ const ReportViewScreen = () => {
 };
 
 const ReportCard = ({ report }) => {
-    const insets = useSafeAreaInsets();
+
     const [showReport, setShowReport] = useState(false);
     const { request } = useApi(userApi.markAsReadReport)
     const user = report?.user;
@@ -162,6 +163,31 @@ const ReportCard = ({ report }) => {
         setShowReport(true)
     }
 
+    const bottomSheetRef = useRef(null);
+    const snapPoints = useMemo(() => ["90%"], []);
+    const insets = useSafeAreaInsets();
+
+    useEffect(() => {
+        if (showReport) {
+            bottomSheetRef.current?.present();
+        } else {
+            bottomSheetRef.current?.dismiss();
+        }
+    }, [showReport]);
+
+    const renderBackdrop = useCallback(
+        (props) => (
+            <BottomSheetBackdrop
+                {...props}
+                opacity={0.5}
+                appearsOnIndex={0}
+                disappearsOnIndex={-1}
+                pressBehavior="close"
+            />
+        ),
+        []
+    );
+
     const fullName = `${user?.firstName} ${user?.middleName ? user?.middleName + " " : ""}${user?.lastName}`
 
     return (
@@ -170,7 +196,7 @@ const ReportCard = ({ report }) => {
                 <View style={styles.userRow}>
                     <Image source={{ uri: user?.image_url }} style={styles.avatar} />
                     <View>
-                        <AppText style={styles.name}>
+                        <AppText numberOfLines={1} style={styles.name}>
                             {fullName}
                         </AppText>
                         <AppText style={styles.subText}>{user?.team}</AppText>
@@ -209,7 +235,13 @@ const ReportCard = ({ report }) => {
                 onPress={() => markAsRead(report.id)}
             />
 
-            <Modal visible={showReport} animationType="slide">
+            <BottomSheetModal
+                style={{ marginTop: insets.top }}
+                ref={bottomSheetRef}
+                snapPoints={snapPoints}
+                backdropComponent={renderBackdrop}
+                onDismiss={() => setShowReport(false)}
+            >
 
                 <View
                     style={{
@@ -217,8 +249,7 @@ const ReportCard = ({ report }) => {
                         justifyContent: "space-between",
                         alignItems: "center",
                         paddingHorizontal: 20,
-                        paddingTop: Constants.statusBarHeight,
-                        paddingBottom: 16
+                        paddingVertical: 16
                     }}
                 >
                     <AppText style={{ fontSize: 20, fontWeight: "700" }}>Report Details</AppText>
@@ -226,9 +257,12 @@ const ReportCard = ({ report }) => {
 
                 <View style={{ height: 1, backgroundColor: colors.light }} />
 
-                <ScrollView
-                    style={{ paddingHorizontal: 20, paddingVertical: 12 }}
-                    contentContainerStyle={{ paddingBottom: 20 }}
+                <BottomSheetScrollView
+                    contentContainerStyle={{
+                        paddingHorizontal: 20,
+                        paddingVertical: 12,
+                        paddingBottom: 80
+                    }}
                 >
                     <Info
                         label="Date"
@@ -267,11 +301,10 @@ const ReportCard = ({ report }) => {
                         )}
                     />
 
-                </ScrollView>
+                </BottomSheetScrollView>
 
-                <AppButton onPress={() => setShowReport(false)} style={{ height: 50, marginTop: 30, marginBottom: insets.bottom + 30, marginHorizontal: 16 }} title={"Close"} />
+            </BottomSheetModal>
 
-            </Modal>
         </Card>
     );
 };
@@ -315,7 +348,6 @@ const styles = StyleSheet.create({
 
     content: {
         padding: 16,
-        paddingBottom: 40,
     },
 
     label: {
@@ -363,6 +395,7 @@ const styles = StyleSheet.create({
 
     name: {
         fontFamily: typography.bold,
+        width: 130
     },
 
     subText: {

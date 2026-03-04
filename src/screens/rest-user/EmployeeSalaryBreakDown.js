@@ -101,14 +101,14 @@ export default function EmployeeSalaryBreakdown({ route }) {
             </>
             }
 
-            <AppButton
+            {/* <AppButton
                 loading={loading}
                 icon={"download"}
                 title="Download Payslip (PDF)"
                 onPress={() => {
                     handleDownloadPaySlip()
                 }}
-            />
+            /> */}
         </ScrollView>
     );
 }

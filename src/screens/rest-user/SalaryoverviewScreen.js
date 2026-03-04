@@ -129,7 +129,7 @@ const SalaryoverviewScreen = ({ navigation }) => {
     const isPending = filterdSalary?.some(item => item.status == "PENDING")
 
     return (
-        <View style={[styles.container, { paddingBottom: insets.bottom }]}>
+        <View style={[styles.container, { marginBottom: insets.bottom }]}>
             <AppLoading visible={loading} />
             <ScrollView contentContainerStyle={styles.content} refreshControl={
                 <RefreshControl
@@ -339,7 +339,7 @@ const SalaryCard = ({ onPress, item, onUpdateStatus }) => {
                     onDismiss={() => setShowModal(false)}
                 >
                     <BottomSheetView
-                        style={[styles.modal, { paddingBottom: insets.bottom + 20 }]}
+                        style={[styles.modal]}
                     >
 
                         <View
@@ -422,9 +422,9 @@ const SalaryCard = ({ onPress, item, onUpdateStatus }) => {
                             style={{
                                 padding: 16,
                                 backgroundColor: "#dcdcdc",
+                                marginBottom: 28,
                                 marginTop: 16,
                                 borderRadius: 12,
-                                marginBottom: insets.bottom + 10
                             }}
                         >
                             <AppText style={{ textAlign: "center" }}>Cancel</AppText>

@@ -22,7 +22,7 @@ const ConfirmModal = ({
 }) => {
 
     const bottomSheetRef = useRef(null);
-    const snapPoints = useMemo(() => ["40%"], []);
+    const snapPoints = useMemo(() => ["50%"], []);
     const insets = useSafeAreaInsets();
 
     useEffect(() => {

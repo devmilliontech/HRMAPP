@@ -75,87 +75,88 @@ export default function SalaryScreen() {
     const salaryData = filterdSalary[0];
 
     return (
-        <ScrollView style={styles.
-            container} contentContainerStyle={{ paddingBottom: insets.bottom + 30 }}>
+        <View style={{ flex: 1, marginBottom: insets.bottom }}>
+            <ScrollView style={styles.
+                container} contentContainerStyle={{ paddingBottom: 40 }}>
 
-            <AppLoading visible={loading} />
+                <AppLoading visible={loading} />
 
-            <Card style={{ marginTop: 12, flexDirection: "row", justifyContent: "space-between" }}>
-                <View style={{ width: "48%" }}>
-                    <AppText style={styles.label}>Select Month</AppText>
-                    <AppPicker
-                        items={months}
-                        selectedItem={months.find(m => m.value === month)}
-                        placeholder="Select Month"
-                        onSelectItem={(item) => setMonth(item.value)}
-                        containerStyle={styles.picker}
-                    />
+                <Card style={{ marginTop: 12, flexDirection: "row", justifyContent: "space-between" }}>
+                    <View style={{ width: "48%" }}>
+                        <AppText style={styles.label}>Select Month</AppText>
+                        <AppPicker
+                            items={months}
+                            selectedItem={months.find(m => m.value === month)}
+                            placeholder="Select Month"
+                            onSelectItem={(item) => setMonth(item.value)}
+                            containerStyle={styles.picker}
+                        />
 
-                </View>
-                <View style={{ width: "48%" }}>
-                    <AppText style={styles.label}>Select Year</AppText>
-                    <AppPicker
-                        items={years}
-                        selectedItem={years.find(y => y.value === year)}
-                        placeholder="Select Year"
-                        onSelectItem={(item) => setYear(item.value)}
-                        containerStyle={styles.picker}
-                    />
-                </View>
-
-            </Card>
-
-
-            <Card style={{ backgroundColor: colors.primary }}>
-                <View style={styles.row}>
-                    <AppText style={[STYLES.header, { marginBottom: 0, color: colors.light }]}>Salary Summary</AppText>
-                    <FontAwesome5 name="wallet" size={24} color={colors.light} />
-                </View>
-                <Row item={{ title: "Gross Salary", amount: salaryData?.grossSalary || 0, icon: "arrow-up" }} />
-                <View style={styles.line} />
-                <Row item={{ title: "Total Deduction", amount: salaryData?.totalDeduction || 0, icon: "arrow-down" }} />
-                <View style={styles.line} />
-                <Row item={{ title: "Net Pay", amount: salaryData?.netSalary || 0, icon: "check", iconBg: colors.success }} />
-            </Card>
-
-            {!salaryData ? (
-                <Card>
-                    <AppText>No salary available for selected month</AppText>
-                </Card>) : <>
-                <AppText style={STYLES.header}>Salary Breakdown</AppText>
-                <Card>
-                    <View style={styles.row}>
-                        <AppText style={{ fontFamily: typography.bold }}>Earnings</AppText>
-                        <AppText style={{ fontFamily: typography.bold, color: colors.success }}>₹{salaryData?.grossSalary?.toLocaleString()}</AppText>
                     </View>
-
-                    {
-                        [{ name: "Base Salary", amount: salaryData?.user?.baseSalary }, ...salaryData?.allowances]?.map((item, idx) => <View key={idx}>
-                            <ListItem item={item} key={idx} />
-                            {idx != [{ name: "Base Salary", amount: salaryData?.user?.baseSalary }, ...salaryData?.allowances]?.length - 1 && <View style={styles.line} />}
-                        </View>
-                        )
-                    }
+                    <View style={{ width: "48%" }}>
+                        <AppText style={styles.label}>Select Year</AppText>
+                        <AppPicker
+                            items={years}
+                            selectedItem={years.find(y => y.value === year)}
+                            placeholder="Select Year"
+                            onSelectItem={(item) => setYear(item.value)}
+                            containerStyle={styles.picker}
+                        />
+                    </View>
 
                 </Card>
 
-                <Card>
-                    <View style={styles.row}>
-                        <AppText style={{ fontFamily: typography.bold }}>Deductions</AppText>
-                        <AppText style={{ fontFamily: typography.bold, color: colors.danger }}>₹{salaryData?.totalDeduction?.toLocaleString()}</AppText>
-                    </View>
-                    {
-                        salaryData?.deductions?.map((item, idx) => <View key={idx}>
-                            <ListItem item={item} key={idx} />
-                            {idx != salaryData?.deductions?.length - 1 && <View style={styles.line} />}
-                        </View>
-                        )
-                    }
-                </Card>
-            </>
-            }
 
-            {/* <AppButton
+                <Card style={{ backgroundColor: colors.primary }}>
+                    <View style={styles.row}>
+                        <AppText style={[STYLES.header, { marginBottom: 0, color: colors.light }]}>Salary Summary</AppText>
+                        <FontAwesome5 name="wallet" size={24} color={colors.light} />
+                    </View>
+                    <Row item={{ title: "Gross Salary", amount: salaryData?.grossSalary || 0, icon: "arrow-up" }} />
+                    <View style={styles.line} />
+                    <Row item={{ title: "Total Deduction", amount: salaryData?.totalDeduction || 0, icon: "arrow-down" }} />
+                    <View style={styles.line} />
+                    <Row item={{ title: "Net Pay", amount: salaryData?.netSalary || 0, icon: "check", iconBg: colors.success }} />
+                </Card>
+
+                {!salaryData ? (
+                    <Card>
+                        <AppText>No salary available for selected month</AppText>
+                    </Card>) : <>
+                    <AppText style={STYLES.header}>Salary Breakdown</AppText>
+                    <Card>
+                        <View style={styles.row}>
+                            <AppText style={{ fontFamily: typography.bold }}>Earnings</AppText>
+                            <AppText style={{ fontFamily: typography.bold, color: colors.success }}>₹{salaryData?.grossSalary?.toLocaleString()}</AppText>
+                        </View>
+
+                        {
+                            [{ name: "Base Salary", amount: salaryData?.user?.baseSalary }, ...salaryData?.allowances]?.map((item, idx) => <View key={idx}>
+                                <ListItem item={item} key={idx} />
+                                {idx != [{ name: "Base Salary", amount: salaryData?.user?.baseSalary }, ...salaryData?.allowances]?.length - 1 && <View style={styles.line} />}
+                            </View>
+                            )
+                        }
+
+                    </Card>
+
+                    <Card>
+                        <View style={styles.row}>
+                            <AppText style={{ fontFamily: typography.bold }}>Deductions</AppText>
+                            <AppText style={{ fontFamily: typography.bold, color: colors.danger }}>₹{salaryData?.totalDeduction?.toLocaleString()}</AppText>
+                        </View>
+                        {
+                            salaryData?.deductions?.map((item, idx) => <View key={idx}>
+                                <ListItem item={item} key={idx} />
+                                {idx != salaryData?.deductions?.length - 1 && <View style={styles.line} />}
+                            </View>
+                            )
+                        }
+                    </Card>
+                </>
+                }
+
+                {/* <AppButton
                 loading={loading}
                 icon={"download"}
                 title="Download Payslip (PDF)"
@@ -164,7 +165,9 @@ export default function SalaryScreen() {
                 }}
             /> */}
 
-        </ScrollView>
+            </ScrollView>
+        </View>
+
     );
 }
 

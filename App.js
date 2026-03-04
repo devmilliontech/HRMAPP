@@ -11,6 +11,7 @@ import { fonts } from "./assets/fonts";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,6 +52,7 @@ export default function App() {
   if (!isReady || !fontsLoaded) return null;
 
   return (
+
     <GestureHandlerRootView style={{ flex: 1 }}>
       <BottomSheetModalProvider>
         <AuthContext.Provider value={{ role, setRole, token, setToken }}>

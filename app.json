@@ -2,7 +2,7 @@
   "expo": {
     "name": "HRMAPP",
     "slug": "hrm",
-    "version": "2.1.3",
+    "version": "2.1.4",
     "orientation": "portrait",
     "icon": "./assets/icon2.png",
     "userInterfaceStyle": "light",
@@ -43,9 +43,9 @@
     "android": {
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.millionhits.hrm",
-      "versionCode": 8,
+      "versionCode": 9,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon2.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,

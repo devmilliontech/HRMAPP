@@ -131,9 +131,9 @@ const Dashboard = ({ navigation }) => {
 
                         <Image source={require("../../assets/logo2.png")} style={{ height: "100%", width: "100%" }} />
                     </TouchableOpacity>
-                    <View style={styles.avatar}>
+                    <TouchableOpacity onPress={() => navigation.navigate("Profile")} style={styles.avatar}>
                         <Image style={styles.image} source={{ uri: data?.user?.image_url }} />
-                    </View>
+                    </TouchableOpacity>
                     <View style={styles.headercontent}>
                         <AppText style={styles.greet}>Welcome back</AppText>
                         <AppText style={{ fontSize: 24, color: colors.white }}>

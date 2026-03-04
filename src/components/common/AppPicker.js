@@ -15,6 +15,7 @@ import {
 import { colors } from "../../constants/colors";
 import AppText from "./AppText";
 import AppBottomSheet from "./AppBottomSheet";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const AppPicker = ({
     style,
@@ -62,43 +63,6 @@ const AppPicker = ({
                 }}
             />
 
-            {/* <Modal animationType="fade" visible={open} transparent={true}>
-                <View style={styles.overlay}>
-                    <View style={styles.modal}>
-                        <View style={{
-                            flexDirection: "row",
-                            padding: 12,
-                            justifyContent: "flex-end"
-                        }}>
-                            <TouchableOpacity onPress={() => setOpen(false)}>
-                                <AntDesign
-                                    name="close"
-                                    size={20}
-                                    color={colors.medium}
-                                />
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={styles.seperator} />
-
-                        <FlatList
-                            data={items}
-                            keyExtractor={(item) => item.label}
-                            renderItem={({ item }) => (
-                                <ListPickerItem
-                                    item={item}
-                                    onSelectItem={() => {
-                                        setOpen(false);
-                                        onSelectItem(item);
-                                    }}
-                                />
-                            )}
-                            ItemSeparatorComponent={() => <View style={styles.seperator} />}
-                        />
-                    </View>
-                </View>
-
-            </Modal> */}
         </View>
     );
 };

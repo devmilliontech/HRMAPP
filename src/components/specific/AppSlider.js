@@ -3,14 +3,11 @@ import { StyleSheet, View } from "react-native";
 import { Slider } from "react-native-awesome-slider";
 import { useSharedValue } from "react-native-reanimated";
 
-const STEP = 1;
-
 
 const AppSlider = ({ value = 0, editable = true, onChange, color, minVal, maxVal }) => {
     const progress = useSharedValue(value);
     const min = useSharedValue(minVal);
     const max = useSharedValue(maxVal);
-
 
     return (
         <View style={styles.container}>
@@ -18,10 +15,10 @@ const AppSlider = ({ value = 0, editable = true, onChange, color, minVal, maxVal
                 progress={progress}
                 minimumValue={min}
                 maximumValue={max}
-                disable={editable}
-                step={STEP}
+                disable={!editable}
                 bubble={(v) => v.toFixed(0)}
                 onSlidingComplete={(v) => {
+                    console.log(v)
                     onChange(v.toFixed(0));
                 }}
                 theme={{

@@ -24,7 +24,7 @@ const HrDashboardNavigator = () => {
             }
         }}>
             <Stack.Screen name='hrDashboard' component={HrDashboard} options={{ headerShown: false }} />
-            <Stack.Screen name='leave-requests' component={LeaveRequestScreen} options={{ title: "Leave Requests", }} />
+            <Stack.Screen name='leave-requests' component={LeaveRequestScreen} options={{ title: "Leave Requests" }} />
             <Stack.Screen name='getAllAttendance' component={AttendanceScreen} options={{
                 title: "Attendance"
             }} />

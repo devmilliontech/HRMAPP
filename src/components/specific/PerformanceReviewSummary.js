@@ -50,27 +50,111 @@ const PerformanceReviewSummary = ({ formData }) => {
 
 const ScoreCard = ({ header, score, rate, flag }) => {
 
-    return <Card>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-            <AppText style={styles.lable}>{header}</AppText>
-            <View>
-                <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-                    <View style={{ height: 10, width: 10, backgroundColor: getScoreColor(score), borderRadius: 25 }}></View>
-                    <AppText style={{ color: getScoreColor(score), fontSize: 15 }}>{getLabel(score)}</AppText>
+    return (
+        <Card>
+            <View style={styles.row}>
+
+                {/* LEFT SIDE */}
+                <View style={styles.left}>
+                    <AppText
+                        numberOfLines={2}
+                        style={styles.label}
+                    >
+                        {header}
+                    </AppText>
                 </View>
-                <AppText style={{ fontSize: 20, textAlign: "right", fontWeight: "700", marginVertical: "8", color: getScoreColor(score) }}>{score}%</AppText>
-                <AppText style={{ fontSize: 14, textAlign: "right", color: colors.medium, marginBottom: 12 }}>{rate} {flag}</AppText>
+
+                {/* RIGHT SIDE */}
+                <View style={styles.right}>
+
+                    <View style={styles.statusRow}>
+                        <View
+                            style={[
+                                styles.dot,
+                                { backgroundColor: getScoreColor(score) }
+                            ]}
+                        />
+                        <AppText
+                            style={{
+                                color: getScoreColor(score),
+                                fontSize: 15
+                            }}
+                        >
+                            {getLabel(score)}
+                        </AppText>
+                    </View>
+
+                    <AppText
+                        style={[
+                            styles.score,
+                            { color: getScoreColor(score) }
+                        ]}
+                    >
+                        {score}%
+                    </AppText>
+
+                    <AppText style={styles.rate}>
+                        {rate} {flag}
+                    </AppText>
+                </View>
             </View>
-        </View>
-        <ProgressBar value={score} bgColor={getScoreColor(score)} />
-    </Card>
-}
+
+            <ProgressBar
+                value={Number(score)}
+                bgColor={getScoreColor(score)}
+            />
+        </Card>
+    );
+};
 
 
 const styles = StyleSheet.create({
-    lable: {
+    row: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+    },
+
+    left: {
+        flex: 1,
+        paddingRight: 10,
+    },
+
+    right: {
+        alignItems: "flex-end",
+        minWidth: 110, // prevents overflow
+    },
+
+    label: {
         marginBottom: 8,
-    }
-})
+        flexShrink: 1,
+    },
+
+    statusRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginBottom: 4,
+    },
+
+    dot: {
+        height: 10,
+        width: 10,
+        borderRadius: 20,
+        marginRight: 6,
+    },
+
+    score: {
+        fontSize: 20,
+        fontWeight: "700",
+        marginVertical: 6,
+    },
+
+    rate: {
+        fontSize: 14,
+        color: colors.medium,
+        marginBottom: 12,
+        textAlign: "right",
+    },
+});
 
 export default PerformanceReviewSummary

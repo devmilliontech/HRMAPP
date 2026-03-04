@@ -162,10 +162,10 @@ const PerformanceRatingScreen = () => {
     })
 
     return (
-        <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <KeyboardAvoidingView behavior="padding" style={[styles.container, { marginBottom: insets.bottom }]}>
             <AppLoading visible={loading} />
             <AppLoading visible={performance.loading} text="Report generating..." />
-            <ScrollView contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + 10 }]}>
+            <ScrollView contentContainerStyle={[styles.content, { paddingBottom: 10 }]}>
                 {step == 0 && (
                     <Card>
                         <AppText style={styles.label}>Employee</AppText>
